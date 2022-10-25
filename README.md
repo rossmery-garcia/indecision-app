@@ -1,9 +1,17 @@
-# indecision-app
+# Indecision App
 
 ## Project setup
+1. Install dependencies
 ```
 yarn install
 ```
+
+2. Add environment variables:
+```
+VUE_APP_YESNO_API_URL
+```
+3. Use the following API:
+[YesNo API](https://yesno.wtf)
 
 ### Compiles and hot-reloads for development
 ```
