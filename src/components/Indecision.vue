@@ -31,17 +31,27 @@ export default {
   },
   methods: {
     async getAnswer() {
-      this.answer = 'Pensando...';
-      const { answer, image } = await fetch(`${ process.env.VUE_APP_YESNO_API_URL }/api`)
-      .then(resp => resp.json())
 
-      this.answer = answer == 'yes' ? 'Si!' : 'No!';
-      this.img = image;
+      try {
+        this.answer = 'Pensando...';
+        const { answer, image } = await fetch(`${ process.env.VUE_APP_YESNO_API_URL }/api`)
+        .then(resp => resp.json())
+
+        this.answer = answer == 'yes' ? 'Si!' : 'No!';
+        this.img = image;
+
+      } catch (error) {
+        console.log('Error getAnswer: ', error);
+        this.answer = 'API failed';
+        this.img = null;
+      }
     }
   },
   watch: {
     question( value, oldValue ) {
       this.isValidQuestion = false;
+
+      console.log( { value } );
 
       if( !value.includes('?')) return;
 
@@ -50,7 +60,6 @@ export default {
       this.getAnswer();
     }
   }
-
 }
 </script>
 
